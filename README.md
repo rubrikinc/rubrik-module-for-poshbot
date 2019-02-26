@@ -26,7 +26,7 @@ This connection information will be supplied to the Rubrik commands at runtime.
 
   PluginConfiguration = @{
     'PoshBot.Rubrik' = @{
-      Server   = 'myrubrukcluster.mydomain.tld'
+      Server   = 'myrubrikcluster.mydomain.tld'
       Username = 'admin'
       Password = 'hunter2'
     }
