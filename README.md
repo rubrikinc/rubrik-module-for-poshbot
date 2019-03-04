@@ -6,7 +6,7 @@ This module is a plugin for PoshBot that allows for the command and control of a
 
 # :blue_book: Documentation
 
-Here are some resources to get you started! If you find any challenges from this project are not properly documented or are unclear, please [raise an issue](/issues/new/choose) and let us know! This is a fun, safe environment - don't worry if you're a GitHub newbie! :heart:
+Here are some resources to get you started! If you find any challenges from this project are not properly documented or are unclear, please raise an issue and let us know! This is a fun, safe environment - don't worry if you're a GitHub newbie! :heart:
 
 * Getting Started Video (*In progress*)
 * [Quick Start Guide](/docs/en-US/QUICKSTART.md)
