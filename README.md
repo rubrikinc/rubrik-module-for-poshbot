@@ -1,53 +1,38 @@
-# PoshBot.Rubrik
+# Rubrik Module for PoshBot
 
-## Overview
+[PoshBot](https://github.com/poshbotio/PoshBot) is a chat bot written in PowerShell. It makes extensive use of classes introduced in PowerShell 5.0. PowerShell modules are loaded into PoshBot and instantly become available as bot commands. PoshBot currently supports connecting to Slack to provide you with awesome ChatOps goodness.
 
-PoshBot.Rubrik is a [PoshBot](https://github.com/poshbotio/PoshBot) plugin for interacting with a [Rubrik](https://www.rubrik.com/) cluster.
+This module is a plugin for PoshBot that allows for the command and control of a [Rubrik](https://build.rubrik.com/) cluster.
 
-## Installation
+# :blue_book: Documentation
 
-To install the plugin from within PoshBot, first make sure the PowerShell module is in a directory located in your `$env:PSModulePath`.
+Here are some resources to get you started! If you find any challenges from this project are not properly documented or are unclear, please [raise an issue](/issues/new/choose) and let us know! This is a fun, safe environment - don't worry if you're a GitHub newbie! :heart:
 
-```
-!install-plugin PoshBot.Rubrik
-```
+* Getting Started Video (*In progress*)
+* [Quick Start Guide](/docs/en-US/QUICKSTART.md)
+* [PoshBot Documentation](http://poshbot.readthedocs.io/en/latest/)
 
-## Configuration
+# :white_check_mark: Prerequisites
 
-This plugin requires values for your username/password and Rubrik cluster connection information to be stored in the [Plugin Configuration](http://docs.poshbot.io/en/latest/guides/plugin-configuration/) section of your [bot configuration file](https://poshbot.readthedocs.io/en/latest/guides/configuration/).
-Insert a new **hashtable** entry under `PluginConfiguration` called `PoshBot.Rubrik` with values for the Rubrik endpoint, username, and password.
-This connection information will be supplied to the Rubrik commands at runtime.
+There are a few services you'll need in order to get this project off the ground:
 
-#### MyPoshBotConfig.psd1
+* [PoshBot](https://github.com/poshbotio/PoshBot) - used to power the chatbot
+* [Rubrik SDK for PowerShell](https://github.com/rubrikinc/rubrik-sdk-for-powershell) - used to power this module's functions
+* Rubrik CDM 4.2+ - the platform integrated with this module
 
-```powershell
-@{
-  # Other options ommitted for brevity
+# :muscle: How You Can Help
 
-  PluginConfiguration = @{
-    'PoshBot.Rubrik' = @{
-      Server   = 'myrubrikcluster.mydomain.tld'
-      Username = 'admin'
-      Password = 'hunter2'
-    }
-  }
-}
-```
+We glady welcome contributions from the community. From updating the documentation to adding more functions to this PoshBot module, all ideas are welcome. Thank you in advance for all of your issues, pull requests, and comments! :star:
 
-## Examples
+* [Contributing Guide](CONTRIBUTING.md)
+* [Code of Conduct](CODE_OF_CONDUCT.md)
 
-```
-!rubrik_version
-```
+# :pushpin: License
 
-```
-!rubrik_sla
-```
+* [MIT License](LICENSE)
 
-```
-!rubrik_report
-```
+# :point_right: About Rubrik Build
 
-```
-!rubrik_database
-```
+We encourage all contributors to become members. We aim to grow an active, healthy community of contributors, reviewers, and code owners. Learn more in our [Welcome to the Rubrik Build Community](https://github.com/rubrikinc/welcome-to-rubrik-build) page.
+
+We'd love to hear from you! Email us: build@rubrik.com :love_letter:
