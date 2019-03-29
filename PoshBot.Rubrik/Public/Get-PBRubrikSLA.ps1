@@ -1,6 +1,7 @@
 function Get-PBRubrikSLA {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_sla'
+        CommandName = 'rubrik_sla',
+        Aliases = 'sla'
     )]
     [cmdletbinding()]
     param(

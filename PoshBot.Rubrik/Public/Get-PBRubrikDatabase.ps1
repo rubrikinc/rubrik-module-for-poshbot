@@ -1,6 +1,7 @@
 function Get-PBRubrikDatabase {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_database'
+        CommandName = 'rubrik_database',
+        Aliases = ('database')
     )]
     [cmdletbinding()]
     param(

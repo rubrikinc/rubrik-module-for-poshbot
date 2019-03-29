@@ -1,7 +1,8 @@
 
 function Get-PBRubrikVersion {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_version'
+        CommandName = 'rubrik_version',
+        Aliases = 'version'
     )]
     [cmdletbinding()]
     param(

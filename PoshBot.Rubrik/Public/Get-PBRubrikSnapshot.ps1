@@ -1,6 +1,7 @@
 function Get-PBRubrikSnapshot {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_snapshot'
+        CommandName = 'rubrik_snapshot',
+        Aliases = 'snapshot'
     )]
     [cmdletbinding()]
     param(

@@ -1,6 +1,7 @@
 function Get-PBRubrikReport {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_report'
+        CommandName = 'rubrik_report',
+        Aliases = 'report'
     )]
     [cmdletbinding()]
     param(

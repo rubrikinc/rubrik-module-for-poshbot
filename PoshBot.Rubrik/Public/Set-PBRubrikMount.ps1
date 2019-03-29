@@ -1,26 +1,27 @@
 function Set-PBRubrikMount {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_mount'
+        CommandName = 'rubrik_mount',
+        Aliases = 'mount'
     )]
     [CmdletBinding(DefaultParameterSetName = 'Get')]
     param(
         [PoshBot.FromConfig()]
         [parameter(Mandatory)]
-        [Parameter(ParameterSetName='Get')]                
-        [Parameter(ParameterSetName='Create')]                
+        [Parameter(ParameterSetName='Get')]
+        [Parameter(ParameterSetName='Create')]
         [Parameter(ParameterSetName='Remove')]
         [hashtable]$Connection,
-        [Parameter(ParameterSetName='Get')]                
-        [Parameter(ParameterSetName='Create')]                
+        [Parameter(ParameterSetName='Get')]
+        [Parameter(ParameterSetName='Create')]
         [Parameter(ParameterSetName='Remove')]
         [string]$Id,
-        [Parameter(ParameterSetName='Create')]        
+        [Parameter(ParameterSetName='Create')]
         [string]$MountName,
         [Parameter(ParameterSetName='Create')]
         [switch]$Create,
         [Parameter(ParameterSetName='Remove')]
         [switch]$Remove,
-        [Parameter(ParameterSetName='Create')]        
+        [Parameter(ParameterSetName='Create')]
         [switch]$PowerOn
     )
 
@@ -37,7 +38,7 @@ function Set-PBRubrikMount {
         $params.Remove('Create') | Out-Null
         $msg = (New-RubrikMount @params -Confirm:$false | Format-List | Out-String -Width 120)
     }
-    
+
     # Remove a Live Mount
     # Required params = Id, Force
     elseif ($id -ne $null -and $Remove.IsPresent) {

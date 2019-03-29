@@ -1,6 +1,7 @@
 function Get-PBRubrikVM {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_vm'
+        CommandName = 'rubrik_vm',
+        Aliases = 'vm'
     )]
     [cmdletbinding()]
     param(
