@@ -7,17 +7,24 @@ function Get-PBRubrikSLA {
         [PoshBot.FromConfig()]
         [parameter(Mandatory)]
         [hashtable]$Connection,
-
-        [string]$Name
+        [string]$Name,
+        [string]$PrimaryClusterId,
+        [string]$Id
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
     $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    if ($Name) {
-        $slas = Get-RubrikSLA -Name $Name
+    $params = $PSBoundParameters
+    $params.Remove('Connection') | Out-Null
+
+    $objects = Get-RubrikSLA @params | Select-Object -Property name,id,frequencies -ExpandProperty frequencies
+
+    if ($objects.count -eq 0 -or -not $objects) {
+        $msg = 'No SLAs found'
     } else {
-        $slas = Get-RubrikSLA
+        $msg = ($objects | Format-List | Out-String -Width 120)
     }
-    New-PoshBotTextResponse -Text ($slas | Format-List | Out-String -Width 120) -AsCode
+
+    New-PoshBotTextResponse -Text $msg -AsCode
 }

@@ -8,18 +8,26 @@ function Get-PBRubrikVM {
         [parameter(Mandatory)]
         [hashtable]$Connection,
         [string]$Name,
-        [string]$SLA
+        [string]$SLA,
+        [switch]$Relic,
+        [switch]$DetailedObject,
+        [string]$PrimaryClusterId,
+        [string]$Id
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
     $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    $vm = Get-RubrikVM -Name $Name -SLA $SLA
-    if ($Name) {
-        $vm = Get-RubrikVM -Name $Name
-    } elseif ($SLA) {
-        $vm = Get-RubrikVM -SLA $SLA
+    $params = $PSBoundParameters
+    $params.Remove('Connection') | Out-Null
+
+    $objects = Get-RubrikVM @params | Select-Object -Property name,effectiveSlaDomainName,slaAssignment,clusterName,ipAddress
+
+    if ($objects.count -eq 0 -or -not $objects) {
+        $msg = 'No virtual machines found'
+    } else {
+        $msg = ($objects | Format-List | Out-String -Width 120)
     }
 
-    New-PoshBotTextResponse -Text ($vm | Format-List | Out-String -Width 120) -AsCode
+    New-PoshBotTextResponse -Text $msg -AsCode
 }
