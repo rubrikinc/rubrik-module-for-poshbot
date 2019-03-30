@@ -1,10 +1,11 @@
 function Format-PBRubrikObject {
     param (
+        # The objects returned by the API, will be reformatted
         [Parameter(
             Position = 0,
             Mandatory = $true)]
         $Object,
-        # Name of the function that calls this function, will be used to
+        # Name of the function that calls this function, will be used to create custom message if no objects are returned
         [Parameter(
             Position = 1)]
         [string] $FunctionName
