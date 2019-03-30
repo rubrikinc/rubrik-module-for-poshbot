@@ -23,11 +23,10 @@ function Get-PBRubrikSnapshot {
 
     $objects = Get-RubrikSnapshot @params | Select-Object -Property id,vmName,date,cloudState,slaName -First $SnapshotQuantity
 
-    if ($objects.count -eq 0 -or -not $objects) {
-        $msg = 'No snapshots found'
-    } else {
-        $msg = ($objects | Format-List | Out-String -Width 120)
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
