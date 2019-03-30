@@ -24,11 +24,10 @@ function Get-PBRubrikVM {
 
     $objects = Get-RubrikVM @params | Select-Object -Property name,id,effectiveSlaDomainName,slaAssignment,clusterName,ipAddress
 
-    if ($objects.count -eq 0 -or -not $objects) {
-        $msg = 'No virtual machines found'
-    } else {
-        $msg = ($objects | Format-List | Out-String -Width 120)
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
