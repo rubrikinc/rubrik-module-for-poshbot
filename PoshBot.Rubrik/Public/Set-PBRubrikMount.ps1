@@ -51,12 +51,11 @@ function Set-PBRubrikMount {
     # Required params = n/a
         $objects = Get-RubrikMount @params
 
-        if ($objects.count -eq 0 -or -not $objects) {
-            $msg = 'No Live Mounts found'
-        } else {
-            $msg = ($objects | Format-List | Out-String -Width 120)
+        $ResponseSplat = @{
+            Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+            AsCode = $true
         }
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
