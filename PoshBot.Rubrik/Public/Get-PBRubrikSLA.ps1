@@ -21,11 +21,10 @@ function Get-PBRubrikSLA {
 
     $objects = Get-RubrikSLA @params | Select-Object -Property name,id,frequencies -ExpandProperty frequencies
 
-    if ($objects.count -eq 0 -or -not $objects) {
-        $msg = 'No SLAs found'
-    } else {
-        $msg = ($objects | Format-List | Out-String -Width 120)
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
