@@ -27,11 +27,10 @@ function Get-PBRubrikDatabase {
 
     $objects = Get-RubrikDatabase @params | Select-Object -Property name,id,effectiveSlaDomainName,instanceName,state
 
-    if ($objects.count -eq 0 -or -not $objects) {
-        $msg = 'No databases found'
-    } else {
-        $msg = ($objects | Format-List | Out-String -Width 120)
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
