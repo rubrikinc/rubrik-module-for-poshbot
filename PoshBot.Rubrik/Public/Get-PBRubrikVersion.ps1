@@ -14,6 +14,12 @@ function Get-PBRubrikVersion {
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
     $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    $version = Get-RubrikVersion | Format-List | Out-String -Width 120
-    New-PoshBotTextResponse -Text $version -AsCode
+    $objects = Get-RubrikVersion | Format-List | Out-String -Width 120
+
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
+    }
+
+    New-PoshBotTextResponse @ResponseSplat
 }
