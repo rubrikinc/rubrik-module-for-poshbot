@@ -19,7 +19,7 @@ function Get-PBRubrikSLA {
     $params = $PSBoundParameters
     $params.Remove('Connection') | Out-Null
 
-    $objects = Get-RubrikSLA @params | Select-Object -Property name,id,frequencies -ExpandProperty frequencies
+    $objects = Get-RubrikSLA @params | Select-Object -Property name,id,frequencies
 
     $ResponseSplat = @{
         Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
