@@ -15,10 +15,10 @@ $Connection = @{
 
 $VerifyDB = @'
 Name                   : RoxieAtRubrik
-id                     :
-effectiveSlaDomainName :
+id                     : ID
+effectiveSlaDomainName : ESDN
 instanceName           : Almost right!
-state                  :
+state                  : Floating
 '@
 #endregion
 
@@ -27,7 +27,10 @@ state                  :
         Mock -CommandName Get-RubrikDatabase -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
                 Name = 'RoxieAtRubrik'
+                id = 'ID'
+                effectiveSlaDomainName = 'ESDN'
                 instanceName = 'Almost right!'
+                state = 'Floating'
             }
         }
 
