@@ -14,7 +14,7 @@ function Get-PBRubrikVersion {
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
     $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    $objects = Get-RubrikVersion | Format-List | Out-String -Width 120
+    $objects = Get-RubrikVersion
 
     $ResponseSplat = @{
         Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name

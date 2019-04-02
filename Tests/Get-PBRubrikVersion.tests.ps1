@@ -5,7 +5,7 @@ foreach ( $privateFunctionFilePath in ( Get-ChildItem -Path './PoshBot.Rubrik/Pr
     . $privateFunctionFilePath
 }
 
-Describe -Name 'Public/Get-PBRubrikReport' -Tag 'Public', 'Get-PBRubrikReport' -Fixture {
+Describe -Name 'Public/Get-PBRubrikVersion' -Tag 'Public', 'Get-PBRubrikVersion' -Fixture {
 #region Specific formatting
 $Connection = @{
     Server   = '1.1.1.1'
@@ -19,9 +19,9 @@ Detail : Almost right!
 '@
 #endregion
 
-    Context -Name 'Parameter/GetReport' {
+    Context -Name 'Parameter/GetVersion' {
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
-        Mock -CommandName Get-RubrikReport -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
+        Mock -CommandName Get-RubrikVersion -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
                 Name = 'RoxieAtRubrik'
                 Detail = 'Almost right!'
@@ -29,12 +29,12 @@ Detail : Almost right!
         }
 
         It -Name 'Run without any parameters' -Test {
-            (Get-PBRubrikReport -Connection $Connection).Text |
+            (Get-PBRubrikVersion -Connection $Connection).Text |
                 Should -BeExactly $VerifyReport
         }
 
         Assert-VerifiableMock
         Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'PoshBot.Rubrik' -Times 1
-        Assert-MockCalled -CommandName Get-RubrikReport -ModuleName 'PoshBot.Rubrik' -Times 1
+        Assert-MockCalled -CommandName Get-RubrikVersion -ModuleName 'PoshBot.Rubrik' -Times 1
     }
 }

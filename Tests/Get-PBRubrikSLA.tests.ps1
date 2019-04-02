@@ -1,7 +1,7 @@
 Remove-Module -Name 'PoshBot.Rubrik' -ErrorAction 'SilentlyContinue'
-Import-Module -Name '../PoshBot.Rubrik/PoshBot.Rubrik.psd1' -Force
+Import-Module -Name './PoshBot.Rubrik/PoshBot.Rubrik.psd1' -Force
 
-foreach ( $privateFunctionFilePath in ( Get-ChildItem -Path '../PoshBot.Rubrik/Private' | Where-Object extension -eq '.ps1').FullName  ) {
+foreach ( $privateFunctionFilePath in ( Get-ChildItem -Path './PoshBot.Rubrik/Private' | Where-Object extension -eq '.ps1').FullName  ) {
     . $privateFunctionFilePath
 }
 

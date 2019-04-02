@@ -5,7 +5,7 @@ foreach ( $privateFunctionFilePath in ( Get-ChildItem -Path './PoshBot.Rubrik/Pr
     . $privateFunctionFilePath
 }
 
-Describe -Name 'Public/Get-PBRubrikDatabase' -Tag 'Public', 'Get-PBRubrikDatabase' -Fixture {
+Describe -Name 'Public/Get-PBRubrikVM' -Tag 'Public', 'Get-PBRubrikVM' -Fixture {
 #region Specific formatting
 $Connection = @{
     Server   = '1.1.1.1'
@@ -14,33 +14,35 @@ $Connection = @{
 }
 
 $VerifyDB = @'
-Name                   : RoxieAtRubrik
-id                     : ID
-effectiveSlaDomainName : ESDN
-instanceName           : Almost right!
-state                  : Floating
+name                   : RoxieAtRubrik
+id                     : 1-1-1-1
+effectiveSlaDomainName : VM
+slaAssignment          : Today
+clusterName            : Almost right!
+ipAddress              : 127.0.0.1
 '@
 #endregion
 
-    Context -Name 'Parameter/GetDB' {
+    Context -Name 'Parameter/GetVM' {
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
-        Mock -CommandName Get-RubrikDatabase -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
+        Mock -CommandName Get-RubrikVM -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
-                Name = 'RoxieAtRubrik'
-                id = 'ID'
-                effectiveSlaDomainName = 'ESDN'
-                instanceName = 'Almost right!'
-                state = 'Floating'
+                name = 'RoxieAtRubrik'
+                id = '1-1-1-1'
+                effectiveSlaDomainName = 'VM'
+                slaAssignment = 'Today'
+                clusterName = 'Almost right!'
+                ipAddress = '127.0.0.1'
             }
         }
 
         It -Name 'Run without any parameters' -Test {
-            (Get-PBRubrikDatabase -Connection $Connection).Text |
+            (Get-PBRubrikVM -Connection $Connection).Text |
                 Should -BeExactly $VerifyDB
         }
 
         Assert-VerifiableMock
         Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'PoshBot.Rubrik' -Times 1
-        Assert-MockCalled -CommandName Get-RubrikDatabase -ModuleName 'PoshBot.Rubrik' -Times 1
+        Assert-MockCalled -CommandName Get-RubrikVM -ModuleName 'PoshBot.Rubrik' -Times 1
     }
 }
