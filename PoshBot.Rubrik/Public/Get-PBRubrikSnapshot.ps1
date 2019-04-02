@@ -16,7 +16,7 @@ function Get-PBRubrikSnapshot {
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
-    $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
+    $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
     $params = $PSBoundParameters
     $params.Remove('Connection') | Out-Null

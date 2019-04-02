@@ -12,7 +12,7 @@ function Get-PBRubrikVersion {
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
-    $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
+    $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
     $objects = Get-RubrikVersion | Format-List | Out-String -Width 120
 

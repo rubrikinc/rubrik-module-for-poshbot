@@ -15,18 +15,17 @@ function Get-PBRubrikReport {
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
-    $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
+    $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
     $params = $PSBoundParameters
     $params.Remove('Connection') | Out-Null
 
     $objects = Get-RubrikReport @params
 
-    if ($objects.count -eq 0 -or -not $objects) {
-        $msg = 'No reports found'
-    } else {
-        $msg = ($objects | Format-List | Out-String -Width 120)
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
