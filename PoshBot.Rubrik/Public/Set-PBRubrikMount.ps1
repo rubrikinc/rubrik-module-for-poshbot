@@ -12,14 +12,25 @@ function Set-PBRubrikMount {
         [Parameter(ParameterSetName='Remove')]
         [hashtable]$Connection,
         [Parameter(ParameterSetName='Get')]
-        [Parameter(ParameterSetName='Create')]
-        [Parameter(ParameterSetName='Remove')]
+        [Parameter(
+            ParameterSetName='Create',
+            Mandatory)]
+        [Parameter(
+            ParameterSetName='Remove',
+            Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [string]$Id,
-        [Parameter(ParameterSetName='Create')]
+        [Parameter(
+            ParameterSetName='Create',
+            Mandatory)]
         [string]$MountName,
-        [Parameter(ParameterSetName='Create')]
+        [Parameter(
+            ParameterSetName='Create',
+            Mandatory)]
         [switch]$Create,
-        [Parameter(ParameterSetName='Remove')]
+        [Parameter(
+            ParameterSetName='Remove',
+            Mandatory)]
         [switch]$Remove,
         [Parameter(ParameterSetName='Create')]
         [switch]$PowerOn
@@ -34,7 +45,7 @@ function Set-PBRubrikMount {
     # Create a new Live Mount
     # Required params = Id
     # Optional params = Name, PowerOn
-    if ($id -ne $null -and $Create.IsPresent) {
+    if ($Create.IsPresent) {
         $params.Remove('Create') | Out-Null
         $objects = New-RubrikMount @params -Confirm:$false
         $ResponseSplat = @{
@@ -45,7 +56,7 @@ function Set-PBRubrikMount {
 
     # Remove a Live Mount
     # Required params = Id, Force
-    elseif ($id -ne $null -and $Remove.IsPresent) {
+    elseif ($Remove.IsPresent) {
         $params.Remove('Remove') | Out-Null
         $objects = Remove-RubrikMount @params -Force -Confirm:$false
         $ResponseSplat = @{
