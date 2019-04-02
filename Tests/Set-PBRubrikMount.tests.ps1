@@ -27,7 +27,7 @@ MockMountdetail : Almost right!'
         }
 
         It -Name '-Id and -Create should create Livemount' -Test {
-            (Set-PBRubrikMount -Id '1-1-1-1' -MountName 'RoxieAtRubrik' -Create -Connection $Connection).Text |
+            (Set-PBRubrikMount -Id '1-1-1-1' -Create -Connection $Connection).Text |
                 Should -BeExactly $VerifyMount
         }
 

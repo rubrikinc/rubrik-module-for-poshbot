@@ -20,9 +20,7 @@ function Set-PBRubrikMount {
             Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$Id,
-        [Parameter(
-            ParameterSetName='Create',
-            Mandatory)]
+        [Parameter(ParameterSetName='Create')]
         [string]$MountName,
         [Parameter(
             ParameterSetName='Create',
