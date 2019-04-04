@@ -1,23 +1,30 @@
 function Get-PBRubrikSLA {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_sla'
+        CommandName = 'rubrik_sla',
+        Aliases = 'sla'
     )]
     [cmdletbinding()]
     param(
         [PoshBot.FromConfig()]
         [parameter(Mandatory)]
         [hashtable]$Connection,
-
-        [string]$Name
+        [string]$Name,
+        [string]$PrimaryClusterId,
+        [string]$Id
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
-    $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
+    $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    if ($Name) {
-        $slas = Get-RubrikSLA -Name $Name
-    } else {
-        $slas = Get-RubrikSLA
+    $params = $PSBoundParameters
+    $params.Remove('Connection') | Out-Null
+
+    $objects = Get-RubrikSLA @params | Select-Object -Property name,id,frequencies
+
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
-    New-PoshBotTextResponse -Text ($slas | Format-List | Out-String -Width 120) -AsCode
+
+    New-PoshBotTextResponse @ResponseSplat
 }

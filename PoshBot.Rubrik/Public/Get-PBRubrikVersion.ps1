@@ -1,7 +1,8 @@
 
 function Get-PBRubrikVersion {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_version'
+        CommandName = 'rubrik_version',
+        Aliases = 'version'
     )]
     [cmdletbinding()]
     param(
@@ -11,8 +12,14 @@ function Get-PBRubrikVersion {
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
-    $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
+    $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    $version = Get-RubrikVersion | Format-List | Out-String -Width 120
-    New-PoshBotTextResponse -Text $version -AsCode
+    $objects = Get-RubrikVersion
+
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
+    }
+
+    New-PoshBotTextResponse @ResponseSplat
 }

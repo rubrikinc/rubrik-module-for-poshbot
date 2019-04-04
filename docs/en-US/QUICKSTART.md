@@ -50,6 +50,17 @@ Here is what you'll want to add to your `PoshBotConfig.psd1` file:
   }
 ```
 
+Note: If you see this error, it means that you did not insert your connection information into the `PoshBotConfig.psd1` file:
+
+```
+Command Exception
+CommandRequirementsNotMet: Mandatory parameters for [command] not provided.
+Usage:
+    syntaxitem
+    ----------
+    {@{name=rubrik_version; commonparameters=true; parameter=system.object[]}}
+```
+
 ## Validation
 
 Once completed, make sure that your PoshBot is able to respond to Rubrik requests by requesting the Rubrik cluster version.

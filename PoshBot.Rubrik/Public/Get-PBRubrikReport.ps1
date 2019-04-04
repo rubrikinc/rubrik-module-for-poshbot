@@ -1,35 +1,31 @@
 function Get-PBRubrikReport {
     [PoshBot.BotCommand(
-        CommandName = 'rubrik_report'
+        CommandName = 'rubrik_report',
+        Aliases = 'report'
     )]
     [cmdletbinding()]
     param(
         [PoshBot.FromConfig()]
         [parameter(Mandatory)]
         [hashtable]$Connection,
-
         [string]$Name,
-
         [ValidateSet('Canned', 'Custom')]
         [string]$Type,
-
         [string]$Id
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
-    $conn = Connect-Rubrik -Server $Connection.Server -Credential $creds
+    $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
-    $params = $PSBoundParameters | Select-Object -ExcludeProperty Connection
-    if (-not $params) {
-        $params = @{}
-    }
-    $reports = Get-RubrikReport @params
+    $params = $PSBoundParameters
+    $params.Remove('Connection') | Out-Null
 
-    if ($reports.total -eq 0 -or -not $reports) {
-        $msg = 'No reports found'
-    } else {
-        $msg = ($reports | Format-List | Out-String -Width 120)
+    $objects = Get-RubrikReport @params
+
+    $ResponseSplat = @{
+        Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
+        AsCode = $true
     }
 
-    New-PoshBotTextResponse -Text $msg -AsCode
+    New-PoshBotTextResponse @ResponseSplat
 }
