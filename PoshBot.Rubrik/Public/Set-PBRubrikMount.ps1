@@ -16,8 +16,7 @@ function Set-PBRubrikMount {
             ParameterSetName='Create',
             Mandatory)]
         [Parameter(
-            ParameterSetName='Remove',
-            Mandatory)]
+            ParameterSetName='Remove')]
         [ValidateNotNullOrEmpty()]
         [string]$Id,
         [Parameter(ParameterSetName='Create')]
@@ -30,6 +29,9 @@ function Set-PBRubrikMount {
             ParameterSetName='Remove',
             Mandatory)]
         [switch]$Remove,
+        [Parameter(
+            ParameterSetName='Remove')]
+        [switch]$All,
         [Parameter(ParameterSetName='Create')]
         [switch]$PowerOn
     )
@@ -56,7 +58,12 @@ function Set-PBRubrikMount {
     # Required params = Id, Force
     elseif ($Remove.IsPresent) {
         $params.Remove('Remove') | Out-Null
-        $objects = Remove-RubrikMount @params -Force -Confirm:$false
+        if ($All.IsPresent) {
+            $objects = Get-RubrikMount | Remove-RubrikMount -Force -Confirm:$false
+        }
+        else {
+            $objects = Remove-RubrikMount @params -Force -Confirm:$false
+        }
         $ResponseSplat = @{
             Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
             AsCode = $true
