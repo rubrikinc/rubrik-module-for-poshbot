@@ -13,7 +13,7 @@ steps:
 - task: richardfennellBM.BM-VSTS-PesterRunner-Task.Pester-Task.Pester@8
   displayName: 'Pester Test Runner'
   inputs:
-    scriptFolder: '$(System.DefaultWorkingDirectory)\tests\*'
+    scriptFolder: '$(System.DefaultWorkingDirectory)\*'
     additionalModulePath: '$(Build.ArtifactStagingDirectory)'
     resultsFile: '$(Common.TestResultsDirectory)\Test-$(Build.DefinitionName)_$(Build.BuildNumber).xml'
 
