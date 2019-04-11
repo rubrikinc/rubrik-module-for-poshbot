@@ -1,6 +1,6 @@
 jobs:
-- job: Azure_Pipeline
-  displayName: 'Azure_Pipeline'
+- job: Azure_Pipelines
+  displayName: 'Azure_Pipelines'
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -8,7 +8,7 @@ jobs:
     displayName: 'Run tests (individual .ps1 files)'
     inputs:
       targetType: Inline
-      script: ./Azure-Pipelines/build.ps1 -Bootstrap -Test
+      script: ./azure-pipelines/build.ps1 -Bootstrap -Test
 
   - task: PublishTestResults@2
     displayName: 'Publish test results'
