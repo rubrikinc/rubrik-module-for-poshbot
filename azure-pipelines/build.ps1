@@ -21,7 +21,7 @@ if ($Bootstrap.IsPresent) {
     # Additional required modules
     'Rubrik', 'PoshBot', 'PSCodeCovIo' | ForEach-Object {
         if (-not (Get-Module -Name $_ -ListAvailable)) {
-            Write-Warning "Module '$_' is missing. Installing 'PSCodeCovIo' ..."
+            Write-Warning "Module '$_' is missing. Installing '$_' ..."
             Install-Module -Name $_ -Scope CurrentUser -Force
         }
     }

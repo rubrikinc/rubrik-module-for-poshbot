@@ -1,11 +1,11 @@
 
-$moduleName         = $env:BHProjectName
-$manifest           = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
-$outputDir          = Join-Path -Path $ENV:BHProjectPath -ChildPath 'Output'
-$outputModDir       = Join-Path -Path $outputDir -ChildPath $env:BHProjectName
+$moduleName         = 'PoshBot.Rubrik'
+$manifest           = Import-PowerShellDataFile -Path .\PoshBot.Rubrik\PoshBot.Rubrik.psd1
+$outputDir          = Join-Path -Path . -ChildPath 'Output'
+$outputModDir       = Join-Path -Path $outputDir -ChildPath PoshBot.Rubrik
 $outputModVerDir    = Join-Path -Path $outputModDir -ChildPath $manifest.ModuleVersion
 $outputManifestPath = Join-Path -Path $outputModVerDir -Child "$($moduleName).psd1"
-$changelogPath      = Join-Path -Path $env:BHProjectPath -Child 'CHANGELOG.md'
+$changelogPath      = Join-Path -Path . -Child 'CHANGELOG.md'
 
 Describe 'Module manifest' {
     Context 'Validation' {
@@ -19,7 +19,7 @@ Describe 'Module manifest' {
         }
 
         It 'has a valid name in the manifest' {
-            $script:manifest.Name | Should Be $env:BHProjectName
+            $script:manifest.Name | Should Be 'PoshBot.Rubrik'
         }
 
         It 'has a valid root module' {
