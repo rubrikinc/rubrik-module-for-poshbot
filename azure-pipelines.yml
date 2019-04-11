@@ -5,7 +5,7 @@ jobs:
     vmImage: 'windows-2019'
   steps:
   - task: PowerShell@2
-    displayName: 'Run tests (individual .ps1 files)'
+    displayName: 'Run tests'
     inputs:
       targetType: Inline
       script: ./azure-pipelines/build.ps1 -Bootstrap -Test
