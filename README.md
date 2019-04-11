@@ -1,6 +1,7 @@
 # Rubrik Module for PoshBot
 
 [![Build Status](https://dev.azure.com/rubrik-build/rubrik-module-for-poshbot/_apis/build/status/rubrikinc.rubrik-module-for-poshbot?branchName=master)](https://dev.azure.com/rubrik-build/rubrik-module-for-poshbot/_build/latest?definitionId=2&branchName=master)
+
 [PoshBot](https://github.com/poshbotio/PoshBot) is a chat bot written in PowerShell by [Brandon Olin](https://github.com/devblackops). It makes extensive use of classes introduced in PowerShell 5.0. PowerShell modules are loaded into PoshBot and instantly become available as bot commands. PoshBot currently has built in support for connecting to Slack and Microsoft Teams to provide you with awesome ChatOps goodness.
 
 This module is a plugin for PoshBot that allows for the command and control of a [Rubrik](https://build.rubrik.com/) cluster.
