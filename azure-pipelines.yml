@@ -1,6 +1,6 @@
 jobs:
-- job: CookToast
-  displayName: 'Cook Toast'
+- job: Azure_Pipeline
+  displayName: 'Azure_Pipeline'
   pool:
     vmImage: 'windows-2019'
   steps:
