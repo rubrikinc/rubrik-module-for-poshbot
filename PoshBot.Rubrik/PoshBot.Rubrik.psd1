@@ -24,13 +24,13 @@ GUID = 'c7b9a4fe-dbb4-40d1-a80e-9fb0b37b6b32'
 Author = 'Brandon Olin'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'Rubrik, Inc.'
 
 # Copyright statement for this module
 Copyright = '(c) Brandon Olin. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PoshBot plugin for interacting with Rubrik'
+Description = 'This module is a plugin for PoshBot that allows for the command and control of a Rubrik cluster.'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
@@ -95,16 +95,16 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = 'Rubrik','Converged_Data_Management','CDM','Backup','Recovery','Data_Protection'
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/rubrikinc/rubrik-module-for-poshbot/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/rubrikinc/rubrik-module-for-poshbot'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+        IconUri = 'http://i.imgur.com/Zbdd4Ko.jpg'
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
