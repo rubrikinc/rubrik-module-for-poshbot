@@ -11,7 +11,8 @@ function New-PBRubrikFullMount {
         [int]$Snapshot,
         [ValidateSet('vm')]
         [string]$Type,
-        [string]$Id
+        [string]$Id,
+        [switch]$RDPFile
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
@@ -30,4 +31,9 @@ function New-PBRubrikFullMount {
     }
 
     New-PoshBotTextResponse @ResponseSplat
+
+    if ($RDPFile) {
+        ' '*1.5KB > "$home\$vm.rdp"
+        New-PoshBotFileUpload -Path "$home\$vm.rdp" -Title "$vm.rdp"
+    }
 }
