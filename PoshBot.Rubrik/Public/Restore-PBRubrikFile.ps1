@@ -10,7 +10,7 @@ function Restore-PBRubrikFile.ps1 {
         [hashtable]$Connection,
         [string]$VM,
         [string]$FileName,
-        [string]$Id
+        [string]$SnapShot
     )
 
     $creds = [pscredential]::new($Connection.Username, ($Connection.Password | ConvertTo-SecureString -AsPlainText -Force))
