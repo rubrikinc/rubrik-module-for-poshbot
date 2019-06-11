@@ -1,4 +1,4 @@
-function Restore-PBRubrikFile.ps1 {
+function Restore-PBRubrikFile {
     [PoshBot.BotCommand(
         CommandName = 'rubrik_restorefile',
         Aliases = 'restorefile'
