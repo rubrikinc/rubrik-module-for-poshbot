@@ -12,7 +12,7 @@
 RootModule = 'PoshBot.Rubrik.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '1.0.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -21,7 +21,7 @@ ModuleVersion = '0.1.0'
 GUID = 'c7b9a4fe-dbb4-40d1-a80e-9fb0b37b6b32'
 
 # Author of this module
-Author = 'Brandon Olin'
+Author = 'Brandon Olin', 'Jaap Brasser'
 
 # Company or vendor of this module
 CompanyName = 'Rubrik, Inc.'
@@ -69,7 +69,17 @@ RequiredModules = @('Rubrik', 'PoshBot')
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = '*'
+FunctionsToExport = @(  'Get-PBRubrikDatabase',
+                        'Get-PBRubrikReport',
+                        'Get-PBRubrikSLA',
+                        'Get-PBRubrikSnapshot',
+                        'Get-PBRubrikVersion',
+                        'Get-PBRubrikVM',
+                        'Invoke-PBRubrikHello',
+                        'New-PBRubrikFullMount',
+                        'Restore-PBRubrikFile',
+                        'Set-PBRubrikMount'
+                    )
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -120,5 +130,3 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
-
-
