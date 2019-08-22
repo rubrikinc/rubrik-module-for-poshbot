@@ -181,11 +181,13 @@ function New-PBRubrikFullMount {
 
     if ($RDPFile) {
         if ($IsWindows) {
-            $RDPPath = Join-Path -Path $env:TEMP -ChildPath $vm
+            $RdpPath = Join-Path -Path $env:TEMP -ChildPath "$($objects.name).rdp"
         } else {
-            $RDPPath = Join-Path -Path '/tmp' -ChildPath $vm
+            $RdpPath = Join-Path -Path '/tmp' -ChildPath "$($objects.name).rdp"
         }
-        ' '*1.5KB > "$home\$vm.rdp"
-        New-PoshBotFileUpload -Path "$home\$vm.rdp" -Title "$vm.rdp"
+
+        New-RdpFile -Path $RdpPath -Full_Address $objects.name
+
+        New-PoshBotFileUpload -Path $RdpPath -Title "$($objects.name).rdp"
     }
 }
