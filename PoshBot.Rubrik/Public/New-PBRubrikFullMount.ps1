@@ -1,7 +1,7 @@
 function New-PBRubrikFullMount {
     [PoshBot.BotCommand(
         CommandName = 'rubrik_fullmount',
-        Aliases = 'fullmount'
+        Aliases = 'fullmount','livemount'
     )]
     [cmdletbinding()]
     param(
