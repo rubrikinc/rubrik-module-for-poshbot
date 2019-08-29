@@ -49,11 +49,9 @@ function New-PBRubrikFullMount {
     New-PoshBotTextResponse @ResponseSplat
 
     if ($RDPFile) {
-        $VmName = "$id.rubrik.us"
-        $RdpPath = Join-Path -Path ([io.path]::GetTempPath()) -ChildPath "$VmName.rdp"
+        $RdpPath = Join-Path -Path ([io.path]::GetTempPath()) -ChildPath "$($Vm.Name).rdp"
 
-        New-RdpFile -Path $RdpPath -Full_Address $vmname
-
-        New-PoshBotFileUpload -Path $RdpPath -Title "$VmName.rdp"
+        New-RdpFile -Path $RdpPath -Full_Address {TODOTODO}
+        New-PoshBotFileUpload -Path $RdpPath -Title "$($Vm.Name).rdp"
     }
 }
