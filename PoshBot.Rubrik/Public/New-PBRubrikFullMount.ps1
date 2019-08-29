@@ -35,6 +35,12 @@ function New-PBRubrikFullMount {
         }
     }
 
+    if ($VM.Count -gt 1) {
+        throw 'More than one matching VM name found, query by ID instead'
+    } elseif ($VM.Count -eq 0) {
+        throw 'No matching VM found'
+    }
+
     $ResponseSplat = @{
         Text = Format-PBRubrikObject -Object $objects -FunctionName $MyInvocation.MyCommand.Name
         AsCode = $true
