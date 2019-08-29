@@ -12,6 +12,7 @@ function New-PBRubrikFullMount {
         [ValidateSet('vm')]
         [string]$Type = 'vm',
         [string]$Id,
+        [string]$Name,
         [switch]$RDPFile
     )
 
@@ -22,8 +23,16 @@ function New-PBRubrikFullMount {
     $params.Remove('Connection') | Out-Null
 
     switch ($type) {
-        'vm' {$objects = (Get-RubrikVM -Name $Id | Select -First 1 |
-            Get-RubrikSnapshot)[$Snapshot] | New-RubrikMount -PowerOn:$true -Confirm:$false}
+        'vm' {
+            $objects =
+                if ($Id) {
+                    $VM = Get-RubrikVM -Id $Id
+                    ($VM | Get-RubrikSnapshot)[$Snapshot] | New-RubrikMount -PowerOn:$true -Confirm:$false
+                } elseif ($Name) {
+                    $VM = Get-RubrikVM -Name $Name
+                    ($VM | Get-RubrikSnapshot)[$Snapshot] | New-RubrikMount -PowerOn:$true -Confirm:$false
+                }
+        }
     }
 
     $ResponseSplat = @{
@@ -34,10 +43,10 @@ function New-PBRubrikFullMount {
     New-PoshBotTextResponse @ResponseSplat
 
     if ($RDPFile) {
-        $VmName = $objects.name
+        $VmName = "$id.rubrik.us"
         $RdpPath = Join-Path -Path ([io.path]::GetTempPath()) -ChildPath "$VmName.rdp"
 
-        New-RdpFile -Path $RdpPath -Full_Address $objects.name
+        New-RdpFile -Path $RdpPath -Full_Address $vmname
 
         New-PoshBotFileUpload -Path $RdpPath -Title "$VmName.rdp"
     }
