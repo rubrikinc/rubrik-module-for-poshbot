@@ -12,7 +12,7 @@ function Get-PBRubrikVM {
         [string]$SLA,
         [switch]$Relic,
         [switch]$DetailedObject,
-        [string]$PrimaryClusterId,
+        [string]$PrimaryClusterId = 'local',
         [string]$Id
     )
 
