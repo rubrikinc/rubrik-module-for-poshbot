@@ -42,7 +42,7 @@ ipAddress              : 127.0.0.1
         }
 
         Assert-VerifiableMock
-        Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'PoshBot.Rubrik' -Times 1
-        Assert-MockCalled -CommandName Get-RubrikVM -ModuleName 'PoshBot.Rubrik' -Times 1
+        Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'PoshBot.Rubrik' -Exactly 1
+        Assert-MockCalled -CommandName Get-RubrikVM -ModuleName 'PoshBot.Rubrik' -Exactly 1
     }
 }
