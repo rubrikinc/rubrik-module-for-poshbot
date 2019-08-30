@@ -5,8 +5,8 @@ foreach ($import in @($public + $private)) {
     try {
         . $import.FullName
     } catch {
-        throw "Unable to dot source [$($import.FullName)]"
+        #throw "Unable to dot source [$($import.FullName)]"
     }
 }
 
-Export-ModuleMember -Function $public.Basename -Verbose
+Export-ModuleMember -Function $public.Basename
