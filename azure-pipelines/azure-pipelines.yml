@@ -4,9 +4,10 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - task: pwsh
+  - task: PowerShell@2
     displayName: 'Run tests'
     inputs:
+      pwsh: true
       targetType: Inline
       script: ./azure-pipelines/build.ps1 -Bootstrap -Test
 
