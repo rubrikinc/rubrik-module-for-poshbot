@@ -4,7 +4,7 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - task: PowerShell@2
+  - task: pwsh
     displayName: 'Run tests'
     inputs:
       targetType: Inline
