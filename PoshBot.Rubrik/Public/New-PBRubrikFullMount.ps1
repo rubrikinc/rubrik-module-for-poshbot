@@ -51,7 +51,7 @@ function New-PBRubrikFullMount {
     if ($RDPFile) {
         $RdpPath = Join-Path -Path ([io.path]::GetTempPath()) -ChildPath "$($Vm.Name).rdp"
 
-        New-RdpFile -Path $RdpPath -Full_Address {TODOTODO}
+        New-RdpFile -Path $RdpPath -Full_Address $VM.ipAddress
         New-PoshBotFileUpload -Path $RdpPath -Title "$($Vm.Name).rdp"
     }
 }
