@@ -9,4 +9,4 @@ foreach ($import in @($public + $private)) {
     }
 }
 
-Export-ModuleMember -Function $public.Basename -Verbose
+Export-ModuleMember -Function $public.Basename
