@@ -17,7 +17,7 @@ $VerifySLA = @'
 Name        : RoxieAtRubrik
 id          : Almost right!
 frequencies : {1, 2, 3}
-'@ -replace '\r$'
+'@ -replace "`r$"
 #endregion
 
     Context -Name 'Parameter/GetSLA' {
