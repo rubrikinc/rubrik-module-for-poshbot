@@ -13,11 +13,10 @@ $Connection = @{
     Password = 'KnowItAll'
 }
 
-$VerifySLA = @'
-Name        : RoxieAtRubrik
+$VerifySLA =
+'Name        : RoxieAtRubrik
 id          : Almost right!
-frequencies : {1, 2, 3}
-'@
+frequencies : {1, 2, 3}'
 #endregion
 
     Context -Name 'Parameter/GetSLA' {
