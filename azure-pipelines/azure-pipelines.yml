@@ -32,7 +32,6 @@ jobs:
       targetPath: ./azure-pipelines
     condition: succeededOrFailed()
 
-jobs:
 - job: Azure_Pipelines
   displayName: 'Azure_Pipelines'
   pool:
@@ -42,6 +41,39 @@ jobs:
     displayName: 'Run Windows PowerShell tests on Windows 2019'
     inputs:
       pwsh: false
+      targetType: Inline
+      script: ./azure-pipelines/build.ps1 -Bootstrap -Test
+
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    inputs:
+      testRunner: NUnit
+      testResultsFiles: '**/TestResults.xml'
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@0
+    displayName: 'Publish compiled module artifact'
+    inputs:
+      artifactName: 'PoshBot.Rubrik'
+      targetPath: ./PoshBot.Rubrik
+    condition: succeededOrFailed()
+
+  - task: PublishPipelineArtifact@0
+    displayName: 'Publish Pipelines scripts as artifact'
+    inputs:
+      artifactName: 'PipelinesScripts'
+      targetPath: ./azure-pipelines
+    condition: succeededOrFailed()
+
+- job: Azure_Pipelines
+  displayName: 'Azure_Pipelines'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - task: PowerShell@2
+    displayName: 'Run PowerShell Core tests on Ubuntu 16.04'
+    inputs:
+      pwsh: true
       targetType: Inline
       script: ./azure-pipelines/build.ps1 -Bootstrap -Test
 
