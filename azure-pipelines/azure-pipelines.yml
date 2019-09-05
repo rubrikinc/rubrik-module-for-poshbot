@@ -65,35 +65,35 @@ jobs:
       targetPath: ./azure-pipelines
     condition: succeededOrFailed()
 
-- job: PowerShell_Core_on_Ubuntu_1604
-  displayName: 'PowerShell_Core_on_Ubuntu_1604'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - task: PowerShell@2
-    displayName: 'Run PowerShell Core tests on Ubuntu 16.04'
-    inputs:
-      pwsh: true
-      targetType: Inline
-      script: ./azure-pipelines/build.ps1 -Bootstrap -Test
-
-  - task: PublishTestResults@2
-    displayName: 'Publish test results'
-    inputs:
-      testRunner: NUnit
-      testResultsFiles: '**/TestResults.xml'
-    condition: succeededOrFailed()
-
-  - task: PublishPipelineArtifact@0
-    displayName: 'Publish compiled module artifact'
-    inputs:
-      artifactName: 'PoshBot.Rubrik'
-      targetPath: ./PoshBot.Rubrik
-    condition: succeededOrFailed()
-
-  - task: PublishPipelineArtifact@0
-    displayName: 'Publish Pipelines scripts as artifact'
-    inputs:
-      artifactName: 'PipelinesScripts'
-      targetPath: ./azure-pipelines
-    condition: succeededOrFailed()
+#- job: PowerShell_Core_on_Ubuntu_1604
+#  displayName: 'PowerShell_Core_on_Ubuntu_1604'
+#  pool:
+#    vmImage: 'ubuntu-16.04'
+#  steps:
+#  - task: PowerShell@2
+#    displayName: 'Run PowerShell Core tests on Ubuntu 16.04'
+#    inputs:
+#      pwsh: true
+#      targetType: Inline
+#      script: ./azure-pipelines/build.ps1 -Bootstrap -Test
+#
+#  - task: PublishTestResults@2
+#    displayName: 'Publish test results'
+#    inputs:
+#      testRunner: NUnit
+#      testResultsFiles: '**/TestResults.xml'
+#    condition: succeededOrFailed()
+#
+#  - task: PublishPipelineArtifact@0
+#    displayName: 'Publish compiled module artifact'
+#    inputs:
+#      artifactName: 'PoshBot.Rubrik'
+#      targetPath: ./PoshBot.Rubrik
+#    condition: succeededOrFailed()
+#
+#  - task: PublishPipelineArtifact@0
+#    displayName: 'Publish Pipelines scripts as artifact'
+#    inputs:
+#      artifactName: 'PipelinesScripts'
+#      targetPath: ./azure-pipelines
+#    condition: succeededOrFailed()
