@@ -1,5 +1,5 @@
 jobs:
-- job: Azure_Pipelines
+- job: 'PowerShell Core on Server 2019'
   displayName: 'Azure_Pipelines'
   pool:
     vmImage: 'windows-2019'
@@ -32,7 +32,7 @@ jobs:
       targetPath: ./azure-pipelines
     condition: succeededOrFailed()
 
-- job: Azure_Pipelines
+- job: 'Windows PowerShell on Server 2019'
   displayName: 'Azure_Pipelines'
   pool:
     vmImage: 'windows-2019'
@@ -65,7 +65,7 @@ jobs:
       targetPath: ./azure-pipelines
     condition: succeededOrFailed()
 
-- job: Azure_Pipelines
+- job: 'PowerShell Core on Ubuntu 16.04'
   displayName: 'Azure_Pipelines'
   pool:
     vmImage: 'ubuntu-16.04'
