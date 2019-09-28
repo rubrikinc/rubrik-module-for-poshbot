@@ -40,7 +40,7 @@ ipAddress              : 127.0.0.1
             }
         }
         It -Name 'Run without any parameters' -Test {
-            Clear-WhiteSpace -Text (Get-PBRubrikVM).Text |
+            Clear-WhiteSpace -Text (Get-PBRubrikVM -Connection @{UserName=1;Password=1}).Text |
                 Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
         }
         Assert-VerifiableMock
