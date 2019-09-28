@@ -29,8 +29,7 @@ ipAddress              : 127.0.0.1
         }
         
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'Poshbot.Rubrik' -MockWith {}
-        function Get-RubrikVM {
-            param($Connection)
+        Mock -CommandName Get-RubrikVM -Verifiable -ModuleName 'Poshbot.Rubrik' -MockWith {
             [pscustomobject]@{
                 name = 'RoxieAtRubrik'
                 id = '1-1-1-1'
@@ -40,13 +39,10 @@ ipAddress              : 127.0.0.1
                 ipAddress = '127.0.0.1'
             }
         }
+
         It -Name 'Run without any parameters' -Test {
-            #Clear-WhiteSpace -Text (Get-PBRubrikVM -Connection $Connection).Text |
-            #    Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
-            
-            (Get-PBRubrikVM -Connection $Connection).Text |
-            Should -BeExactly $VerifyDB
-            
+            Clear-WhiteSpace -Text (Get-PBRubrikVM -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
         }
         Assert-VerifiableMock
         Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'Poshbot.Rubrik' -Exactly 1
