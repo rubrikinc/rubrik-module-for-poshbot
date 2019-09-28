@@ -6,6 +6,12 @@ foreach ( $privateFunctionFilePath in ( Get-ChildItem -Path './PoshBot.Rubrik/Pr
 }
 
 Describe -Name 'Public/Set-PBRubrikMount' -Tag 'Public', 'Set-PBRubrikMount' -Fixture {
+#region Public Functions
+function Clear-WhiteSpace ($Text) {
+    "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
+}
+#endregion
+    
 #region Specific formatting
 $Connection = @{
     Server   = '1.1.1.1'
@@ -18,10 +24,6 @@ MockMountdetail : Almost right!'
 #endregion
 
     Context -Name 'Parameter/CreateMount' {
-        function Clear-WhiteSpace ($Text) {
-            "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
-        }
-        
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
         Mock -CommandName New-RubrikMount -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
@@ -50,8 +52,8 @@ MockMountdetail : Almost right!'
         }
 
         It -Name '-Id and -Remove should remove Livemount' -Test {
-            (Set-PBRubrikMount -Id '1-1-1-1' -Remove -Connection $Connection).Text |
-                Should -BeExactly $VerifyMount
+            Clear-WhiteSpace -Text (Set-PBRubrikMount -Id '1-1-1-1' -Remove -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyMount)
         }
 
         Assert-VerifiableMock
@@ -69,13 +71,13 @@ MockMountdetail : Almost right!'
         }
 
         It -Name 'No parameters' -Test {
-            (Set-PBRubrikMount -Connection $Connection).Text |
-                Should -BeExactly $VerifyMount
+            Clear-WhiteSpace -Text (Set-PBRubrikMount -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyMount)
         }
 
         It -Name 'Id parameter' -Test {
-            (Set-PBRubrikMount -Id '1-1-1-1' -Connection $Connection).Text |
-                Should -BeExactly $VerifyMount
+            Clear-WhiteSpace -Text (Set-PBRubrikMount -Id '1-1-1-1' -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyMount)
         }
 
         Assert-VerifiableMock
