@@ -29,7 +29,7 @@ function Get-PBRubrikVM {
     } -End {
         $params.Remove('Connection') | Out-Null
     }
-Wait-Debugger
+    
     $objects = Get-RubrikVM @params | Select-Object -Property name,id,effectiveSlaDomainName,slaAssignment,clusterName,ipAddress
 
     $ResponseSplat = @{
