@@ -28,8 +28,8 @@ ipAddress              : 127.0.0.1
             "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
         }
         
-        Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
-        Mock -CommandName Get-RubrikVM -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
+        Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'Poshbot.Rubrik' -MockWith {}
+        Mock -CommandName Get-RubrikVM -Verifiable -ModuleName 'Poshbot.Rubrik' -MockWith {
             [pscustomobject]@{
                 name = 'RoxieAtRubrik'
                 id = '1-1-1-1'
@@ -40,11 +40,11 @@ ipAddress              : 127.0.0.1
             }
         }
         It -Name 'Run without any parameters' -Test {
-            Clear-WhiteSpace -Text (Get-PBRubrikVM -Connection @{UserName=1;Password=1}).Text |
+            Clear-WhiteSpace -Text (Get-PBRubrikVM).Text |
                 Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
         }
         Assert-VerifiableMock
-        Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'PoshBot.Rubrik' -Exactly 1
-        Assert-MockCalled -CommandName Get-RubrikVM -ModuleName 'PoshBot.Rubrik' -Exactly 1
+        Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'Poshbot.Rubrik' -Exactly 1
+        Assert-MockCalled -CommandName Get-RubrikVM -ModuleName 'Poshbot.Rubrik' -Exactly 1
     }
 }
