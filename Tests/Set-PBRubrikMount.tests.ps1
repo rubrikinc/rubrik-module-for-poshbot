@@ -18,6 +18,10 @@ MockMountdetail : Almost right!'
 #endregion
 
     Context -Name 'Parameter/CreateMount' {
+        function Clear-WhiteSpace ($Text) {
+            "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
+        }
+        
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
         Mock -CommandName New-RubrikMount -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
@@ -27,8 +31,8 @@ MockMountdetail : Almost right!'
         }
 
         It -Name '-Id and -Create should create Livemount' -Test {
-            (Set-PBRubrikMount -Id '1-1-1-1' -Create -Connection $Connection).Text |
-                Should -BeExactly $VerifyMount
+            Clear-WhiteSpace -Text (Set-PBRubrikMount -Id '1-1-1-1' -Create -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyMount)
         }
 
         Assert-VerifiableMock
