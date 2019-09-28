@@ -21,6 +21,10 @@ frequencies : {1, 2, 3}
 #endregion
 
     Context -Name 'Parameter/GetSLA' {
+        function Clear-WhiteSpace ($Text) {
+            "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
+        }
+        
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
         Mock -CommandName Get-RubrikSLA -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
@@ -31,8 +35,8 @@ frequencies : {1, 2, 3}
         }
 
         It -Name 'Run without any parameters' -Test {
-            (Get-PBRubrikSLA -Connection $Connection).Text |
-                Should -BeExactly $VerifySLA
+            Clear-WhiteSpace -Text (Get-PBRubrikSLA -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifySLA)
         }
 
         Assert-VerifiableMock

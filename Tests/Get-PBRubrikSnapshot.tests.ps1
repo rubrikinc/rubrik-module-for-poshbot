@@ -23,6 +23,10 @@ slaName    : Floating
 #endregion
 
     Context -Name 'Parameter/GetSnapshot' {
+        function Clear-WhiteSpace ($Text) {
+            "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
+        }
+        
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
         Mock -CommandName Get-RubrikSnapshot -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
@@ -35,8 +39,8 @@ slaName    : Floating
         }
 
         It -Name 'Run with -id parameter' -Test {
-            (Get-PBRubrikSnapshot -id '1-1-1-1' -Connection $Connection).Text |
-                Should -BeExactly $VerifyDB
+            Clear-WhiteSpace -Text (Get-PBRubrikSnapshot -id '1-1-1-1' -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
         }
 
         Assert-VerifiableMock

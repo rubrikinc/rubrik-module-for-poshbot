@@ -23,6 +23,10 @@ state                  : Floating
 #endregion
 
     Context -Name 'Parameter/GetDB' {
+        function Clear-WhiteSpace ($Text) {
+            "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
+        }
+        
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
         Mock -CommandName Get-RubrikDatabase -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
@@ -35,8 +39,8 @@ state                  : Floating
         }
 
         It -Name 'Run without any parameters' -Test {
-            (Get-PBRubrikDatabase -Connection $Connection).Text |
-                Should -BeExactly $VerifyDB
+            Clear-WhiteSpace -Text (Get-PBRubrikDatabase -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
         }
 
         Assert-VerifiableMock
