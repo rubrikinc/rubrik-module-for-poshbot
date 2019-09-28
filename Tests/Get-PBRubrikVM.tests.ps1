@@ -7,7 +7,7 @@ foreach ( $privateFunctionFilePath in ( Get-ChildItem -Path './PoshBot.Rubrik/Pr
 
 Describe -Name 'Public/Get-PBRubrikVM' -Tag 'Public', 'Get-PBRubrikVM' -Fixture {
 #region Specific formatting
-$ConnectionMock = @{
+$Connection = @{
     Server   = '1.1.1.1'
     Username = 'RoxieAtRubrik'
     Password = 'KnowItAll'
@@ -40,8 +40,11 @@ ipAddress              : 127.0.0.1
             }
         }
         It -Name 'Run without any parameters' -Test {
-            Clear-WhiteSpace -Text (Get-PBRubrikVM).Text |
-                Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
+            #Clear-WhiteSpace -Text (Get-PBRubrikVM -Connection $Connection).Text |
+            #    Should -BeExactly (Clear-WhiteSpace -Text $VerifyDB)
+            
+            (Get-PBRubrikVM -Connection $Connection).Text |
+            Should -BeExactly $VerifyDB
         }
         Assert-VerifiableMock
         Assert-MockCalled -CommandName Connect-Rubrik -ModuleName 'Poshbot.Rubrik' -Exactly 1
