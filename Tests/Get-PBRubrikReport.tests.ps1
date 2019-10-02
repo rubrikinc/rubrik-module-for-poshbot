@@ -20,6 +20,10 @@ Detail : Almost right!
 #endregion
 
     Context -Name 'Parameter/GetReport' {
+        function Clear-WhiteSpace ($Text) {
+            "$($Text -replace "(`t|`n|`r)"," " -replace "\s+"," ")".Trim()
+        }
+        
         Mock -CommandName Connect-Rubrik -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {}
         Mock -CommandName Get-RubrikReport -Verifiable -ModuleName 'PoshBot.Rubrik' -MockWith {
             [pscustomobject]@{
@@ -29,8 +33,8 @@ Detail : Almost right!
         }
 
         It -Name 'Run without any parameters' -Test {
-            (Get-PBRubrikReport -Connection $Connection).Text |
-                Should -BeExactly $VerifyReport
+            Clear-WhiteSpace -Text (Get-PBRubrikReport -Connection $Connection).Text |
+                Should -BeExactly (Clear-WhiteSpace -Text $VerifyReport)
         }
 
         Assert-VerifiableMock

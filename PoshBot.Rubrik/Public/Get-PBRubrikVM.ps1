@@ -20,15 +20,16 @@ function Get-PBRubrikVM {
     $null = Connect-Rubrik -Server $Connection.Server -Credential $creds
 
     $params = $PSBoundParameters
-    $params.Remove('Connection') | Out-Null
     $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
         $ExcludedParam = 'Path','PipelineVariable','OutBuffer','OutVariable','InformationVariable','WarningVariable','ErrorVariable','InformationAction','WarningAction','ErrorAction','Debug','Verbose'
     } -Process {
         if (($ExcludedParam -notcontains $_) -and ($null -eq $params.$_) -and ((Get-Variable -Name $_).value)) {
             $params.Add($_, (Get-Variable -Name $_).value)
         }
+    } -End {
+        $params.Remove('Connection') | Out-Null
     }
-
+    
     $objects = Get-RubrikVM @params | Select-Object -Property name,id,effectiveSlaDomainName,slaAssignment,clusterName,ipAddress
 
     $ResponseSplat = @{
